@@ -1,0 +1,3 @@
+[console_scripts]
+moshi-offline = moshi.offline:main
+moshi-server = moshi.server:main

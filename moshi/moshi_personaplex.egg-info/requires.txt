@@ -1,0 +1,9 @@
+numpy<2.2,>=1.26
+safetensors<0.5,>=0.4.0
+huggingface-hub<0.25,>=0.24
+einops==0.7
+sentencepiece==0.2
+sounddevice==0.5
+sphn<0.2,>=0.1.4
+torch<2.5,>=2.2.0
+aiohttp<3.11,>=3.10.5

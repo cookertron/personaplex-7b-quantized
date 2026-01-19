@@ -1,0 +1,21 @@
+Metadata-Version: 2.4
+Name: moshi-personaplex
+Version: 0.1.0
+Summary: Personaplex finetune of moshi to enable role and voice control.
+Author-email: Rajarshi Roy <rajarshir@nvidia.com>
+Maintainer-email: Rajarshi Roy <rajarshir@nvidia.com>
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE.audiocraft
+License-File: LICENSE.moshi
+Requires-Dist: numpy<2.2,>=1.26
+Requires-Dist: safetensors<0.5,>=0.4.0
+Requires-Dist: huggingface-hub<0.25,>=0.24
+Requires-Dist: einops==0.7
+Requires-Dist: sentencepiece==0.2
+Requires-Dist: sounddevice==0.5
+Requires-Dist: sphn<0.2,>=0.1.4
+Requires-Dist: torch<2.5,>=2.2.0
+Requires-Dist: aiohttp<3.11,>=3.10.5
+Dynamic: license-file
