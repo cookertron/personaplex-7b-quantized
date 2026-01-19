@@ -17,32 +17,37 @@ PersonaPlex is a real-time, full-duplex speech-to-speech conversational model th
 
 ### Installation
 
-Download this repository and install with:
+1.  **Install Dependencies**:
+    ```bash
+    pip install -e .
+    ```
+    *(This installs the patches and local `moshi` package)*
+
+2.  **Authenticate**:
+    Log in to your Hugging Face account and accept the [PersonaPlex model license](https://huggingface.co/nvidia/personaplex-7b-v1).
+    ```bash
+    export HF_TOKEN=<YOUR_HUGGINGFACE_TOKEN>
+    ```
+
+### Launch Server (Optimized for 16GB VRAM)
+
+This release is pre-configured for **4-bit quantization** to run efficiently on consumer GPUs (e.g., RTX 4080/4090).
+
+**1. Run the helper script:**
 ```bash
-pip install moshi/.
+./run_server.sh
 ```
 
-### Accept Model License
-Log in to your Huggingface account and accept the PersonaPlex model license [here](https://huggingface.co/nvidia/personaplex-7b-v1). <br>
-Then set up your Huggingface authentication:
-```bash
-export HF_TOKEN=<YOUR_HUGGINGFACE_TOKEN>
-```
+**2. Access the Web UI:**
+Open **`http://localhost:8998`** in your browser.
 
-### Launch Server
+> [!IMPORTANT]
+> You **MUST** use `localhost` (not an IP address) to ensure the browser grants microphone access in this HTTP mode.
 
-Launch server for live interaction (temporary SSL certs for https):
-```bash
-SSL_DIR=$(mktemp -d); python -m moshi.server --ssl "$SSL_DIR"
-```
-
-Access the Web UI from a browser at `localhost:8998` if running locally, otherwise look for the access link printed by the script:
-```
-Access the Web UI directly at https://11.54.401.33:8998
-```
-
-> [!NOTE]
-> For instructions on running with **8-bit quantization** (to fit on 16GB VRAM GPUs), preserving memory, and setup details, please see [README_FP8.md](README_FP8.md).
+### Configuration
+The default setup uses **4-bit quantization** for maximum stability.
+- **4-bit** (Default): Lowest VRAM (~8GB), best stability.
+- **8-bit**: Higher precision, slightly more VRAM (~12GB). Edit `run_server.sh` to change `--quantize 4bit` to `--quantize 8bit` if desired.
 
 ### Offline Evaluation
 
