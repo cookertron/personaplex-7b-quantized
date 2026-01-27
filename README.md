@@ -13,41 +13,94 @@ PersonaPlex is a real-time, full-duplex speech-to-speech conversational model th
   <em>PersonaPlex Architecture</em>
 </p>
 
-## Usage
+## Quick Start (Recommended)
 
-### Installation
+### One-Command Installation
 
-1.  **Install Dependencies**:
-    ```bash
-    pip install -e .
-    ```
-    *(This installs the patches and local `moshi` package)*
+```bash
+python install.py
+```
 
-2.  **Authenticate**:
-    Log in to your Hugging Face account and accept the [PersonaPlex model license](https://huggingface.co/nvidia/personaplex-7b-v1).
-    ```bash
-    export HF_TOKEN=<YOUR_HUGGINGFACE_TOKEN>
-    ```
+The installer will:
+- Check system requirements (Python 3.10+, CUDA, disk space)
+- Install all dependencies automatically
+- Set up HuggingFace authentication
+- Download model files
+- Create launcher scripts
 
-### Launch Server (Optimized for 16GB VRAM)
+### Launch with GUI
 
-This release is pre-configured for **4-bit quantization** to run efficiently on consumer GPUs (e.g., RTX 4080/4090).
+```bash
+python -m gui.app
+```
 
-**1. Run the helper script:**
+This opens a desktop GUI where you can:
+- Select voices and prompts visually
+- Start/stop the server with one click
+- Monitor GPU usage and server status
+- Access the web conversation interface
+
+### Alternative: Command Line
+
 ```bash
 ./run_server.sh
 ```
 
-**2. Access the Web UI:**
-Open **`http://localhost:8998`** in your browser.
+Then open **`http://localhost:8998`** in your browser.
 
 > [!IMPORTANT]
-> You **MUST** use `localhost` (not an IP address) to ensure the browser grants microphone access in this HTTP mode.
+> You **MUST** use `localhost` (not an IP address) to ensure the browser grants microphone access in HTTP mode.
 
-### Configuration
-The default setup uses **4-bit quantization** for maximum stability.
-- **4-bit** (Default): Lowest VRAM (~8GB), best stability.
-- **8-bit**: Higher precision, slightly more VRAM (~12GB). Edit `run_server.sh` to change `--quantize 4bit` to `--quantize 8bit` if desired.
+---
+
+## Manual Installation
+
+If you prefer manual setup:
+
+### 1. Install Dependencies
+
+```bash
+pip install -e .
+```
+
+### 2. Authenticate with HuggingFace
+
+Log in to your Hugging Face account and accept the [PersonaPlex model license](https://huggingface.co/nvidia/personaplex-7b-v1).
+
+```bash
+export HF_TOKEN=<YOUR_HUGGINGFACE_TOKEN>
+```
+
+### 3. Launch Server
+
+```bash
+python -m moshi.server --quantize 4bit --port 8998
+```
+
+---
+
+## Configuration
+
+Settings are stored in `config.yaml`:
+
+```yaml
+server:
+  host: localhost
+  port: 8998
+  quantize: 4bit    # Options: 4bit, 8bit
+  device: cuda      # Options: cuda, cpu
+
+defaults:
+  voice_prompt: NATF2.pt
+  text_prompt: "You are a wise and friendly teacher..."
+```
+
+### Quantization Options
+
+| Mode | VRAM Required | Notes |
+|------|---------------|-------|
+| **4-bit** (Default) | ~8GB | Best stability, lowest memory |
+| **8-bit** | ~12GB | Higher precision |
 
 ### Offline Evaluation
 

@@ -1,0 +1,21 @@
+# PersonaPlex Configuration
+# This file stores your preferences for the PersonaPlex application.
+
+server:
+  host: localhost
+  port: 8998
+  quantize: 4bit      # Options: 4bit, 8bit
+  device: cuda        # Options: cuda, cpu
+
+defaults:
+  voice_prompt: NATF2.pt
+  text_prompt: "You are a wise and friendly teacher. Answer questions or provide advice in a clear and engaging way."
+
+# Model settings (usually don't need to change)
+model:
+  hf_repo: nvidia/personaplex-7b-v1
+
+# GUI settings
+gui:
+  theme: default
+  auto_start_server: true
